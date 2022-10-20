@@ -29,8 +29,10 @@ pluginFileContents.split(/\r?\n/).forEach(line => {
     if (line.includes('ng_styles')) {
         console.log(typeof(line))
         console.log(line)
-        var result = line.match(/(?<=styles\.).*?(?=\.css)/gs);
-        console.log(result)
+        const matchedLine = line.match(/(?<=app\/).*?(?=\')/gs);
+        const matchedFileName = scriptsAndStyleFiles.find(file => file.includes('styles'))
+        console.log(matchedLine)
+        console.log(matchedFileName)
     }
 });
 
