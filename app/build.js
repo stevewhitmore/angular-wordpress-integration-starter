@@ -18,7 +18,7 @@ execSync(`mv ./dist ${destination}`)
 distFilenames = fs.readdirSync(`${destination}/dist/my-awesome-new-app`);
 scriptsAndStyleFiles = distFilenames.filter(file => file.endsWith('.js') || file.endsWith('.css'));
 
-// replace the js and css file names in the php file
+// replace the js and css file names in the php file contents
 const pluginFileContents = fs.readFileSync(`${pluginFilePath}`, 'utf8');
 
 const updateLine = (line, name) => {
