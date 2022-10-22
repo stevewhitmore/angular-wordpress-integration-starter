@@ -9,7 +9,7 @@ const pluginFilePath = `${destination}/${pluginName}.php`
 fs.rmSync(`${destination}/dist`, { recursive: true, force: true });
 
 // Run the build command
-execSync('ng build', { encoding: 'utf-8', stdio: 'inherit' });
+execSync('ng build --configuration production', { encoding: 'utf-8', stdio: 'inherit' });
 
 // Move the bundle from the `/app` folder to the plugin's folder
 execSync(`mv ./dist ${destination}`)
@@ -18,13 +18,10 @@ execSync(`mv ./dist ${destination}`)
 distFilenames = fs.readdirSync(`${destination}/dist/my-awesome-new-app`);
 scriptsAndStyleFiles = distFilenames.filter(file => file.endsWith('.js') || file.endsWith('.css'));
 
-console.log(`*************** ${pluginFileName} will be updated with the following: ***************`)
-console.log(scriptsAndStyleFiles);
-
 // replace the js and css file names in the php file
 const pluginFileContents = fs.readFileSync(`${pluginFilePath}`, 'utf8');
 
-const matchLine = (line, name) => {
+const updateLine = (line, name) => {
     const matchedLinePart = line.match(/(?<=app\/).*?(?=\')/gs).toString();
     const matchedFileName = scriptsAndStyleFiles.find(file => file.includes(name));
     return line.replace(matchedLinePart, matchedFileName);
@@ -32,16 +29,16 @@ const matchLine = (line, name) => {
 
 const updatedFileContentArray = pluginFileContents.split(/\r?\n/).map(line => {
     if (line.includes('wp_enqueue_style( \'ng_styles')) {
-        return matchLine(line, 'styles');
+        return updateLine(line, 'styles');
     }
     if (line.includes('wp_register_script( \'ng_main')) {
-        return matchLine(line, 'main');
+        return updateLine(line, 'main');
     }
     if (line.includes('wp_register_script( \'ng_polyfills')) {
-        return matchLine(line, 'polyfills');
+        return updateLine(line, 'polyfills');
     }
     if (line.includes('wp_register_script( \'ng_runtime')) {
-        return matchLine(line, 'runtime');
+        return updateLine(line, 'runtime');
     }
     return line;
 });
