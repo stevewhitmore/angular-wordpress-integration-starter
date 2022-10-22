@@ -6,6 +6,8 @@ Sometimes we need a modern, flexibile, and extensible solution to frontend probl
 
 Also, Angular is awesome, and not nearly as cumbersome as it may have earned a reputation for in its early days.
 
+You can get more details about how this all works in [this article](https://dev.to/stevewhitmore/take-your-wordpress-site-farther-with-angular-3o6p). 
+
 ## Setup
 
 1. `cd app && npm i` to get things started.
