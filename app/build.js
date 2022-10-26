@@ -28,19 +28,18 @@ const updateLine = (line, name) => {
 }
 
 const updatedFileContentArray = pluginFileContents.split(/\r?\n/).map(line => {
-    if (line.includes('wp_enqueue_style( \'ng_styles')) {
-        return updateLine(line, 'styles');
+    switch (true) {
+        case line.includes('wp_enqueue_style( \'ng_styles'):
+            return updateLine(line, 'styles');
+        case line.includes('wp_register_script( \'ng_main'):
+            return updateLine(line, 'main');
+        case line.includes('wp_register_script( \'ng_polyfills'):
+            return updateLine(line, 'polyfills');
+        case line.includes('wp_register_script( \'ng_runtime'):
+            return updateLine(line, 'runtime');
+        default:
+            return line;
     }
-    if (line.includes('wp_register_script( \'ng_main')) {
-        return updateLine(line, 'main');
-    }
-    if (line.includes('wp_register_script( \'ng_polyfills')) {
-        return updateLine(line, 'polyfills');
-    }
-    if (line.includes('wp_register_script( \'ng_runtime')) {
-        return updateLine(line, 'runtime');
-    }
-    return line;
 });
 const updatedFileContents = updatedFileContentArray.join('\n');
 
