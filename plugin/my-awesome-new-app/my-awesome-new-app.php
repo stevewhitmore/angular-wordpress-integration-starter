@@ -29,6 +29,6 @@ function attach_ng() {
                                                                                                                                                                                                                    
 add_shortcode( 'ng_wp', 'attach_ng' );                                                                                                                                                                             
                                                                                                                                                                                                                    
-// Add the shortcode [vue_wp] to any page or post.                                                                                                                                                                 
+// Add the shortcode [ng_wp] to any page or post.                                                                                                                                                                 
 // The shorcode can be whatever. [ng_wp] is just an example.                                                                                                                                                       
 ?>    
